@@ -13,7 +13,7 @@ const Block = preload( "res://Block.tscn" )
 func _ready():
 	create_figure()
 	active = true
-	$Timer.start()
+	#$Timer.start()
 	
 
 
@@ -34,12 +34,18 @@ func listen_input():
 	if( Input.is_action_just_pressed("p_rotate")):
 		rotate_figure()
 	
-	if( Input.is_action_just_pressed( "p_left" )):
+	elif( Input.is_action_just_pressed( "p_left" )):
+		print( 'press left' )
 		move_left()
 
 
-	if( Input.is_action_just_pressed( "p_right" )):
+	elif( Input.is_action_just_pressed( "p_right" )):
+		print( 'press right' )
 		move_right()
+		
+	elif( Input.is_action_just_pressed( "p_down" )):
+		print( 'press down' )
+		move_down()
 
 
 func rotate_figure():
@@ -58,8 +64,14 @@ func move_right():
 	Glass.update_figure( Figures.current )
 
 
+func move_down():
+	Figures.move_down()
+	Glass.update_figure( Figures.current )
+
+
 func _on_Timer_timeout():
-	if( active ):
-		Figures.move_down()
-		Glass.update_figure( Figures.current )
+	pass
+#	if( active ):
+#		Figures.move_down()
+#		Glass.update_figure( Figures.current )
 	

@@ -78,10 +78,10 @@ extends Node
 var names = ['dot']
 var figures = {
 	'dot': [
-			[
-				[1]
-			]
-		],
+		[
+			[1]
+		]
+	]
 }
 
 var current = []
@@ -123,44 +123,67 @@ func rotate():
 
 
 func move_left():
-	if( checkCell( LEFT )):
+	if( posX > 0 ):
 		posX -= 1
 		Glass.posX = posX
 
 
 func move_right():
-	if( checkCell( RIGHT )):
+	if( posX < Glass.ROW_SIZE - 1 and checkCollision( RIGHT )):
 		posX += 1
 		Glass.posX = posX
 
 
 func move_down():
-	if( checkCell( DOWN )):
+	if( posY < Glass.COL_SiZE - 1 and checkCollision( DOWN )):
 		posY += 1
 		Glass.posY = posY
+		print( 'move down' )
 
 
-func checkCell( direction ):
+func canMove():
+	var farX = 0
+	
+	for i in range( current.size()):
+		for j in range( current[i].size()):
+			if( current[i][j] != 0 and j > farX ):
+				farX = j
+	
+	if( farX + posX >= Glass.ROW_SIZE - 1 ):
+		return false
+		
+	return true
+
+
+func checkCollision( direction ):
 	match direction:
 		LEFT:
-			if( posX - 1 < 0 ):
-				return false
-				
-			if( Glass.content[posY][posX - 1] != 0 ):
-				return false
+			pass
 		
 		RIGHT:
-			if( posX + 1 >= Glass.ROW_SIZE ):
+			pass
+		
+		DOWN: 
+			pass
+
+	return false
+
+
+func checkCell( pos_x, pos_y, direction ):
+	var is_empty = false
+	
+	match direction:
+		LEFT:
+			if( pos_x - 1 < 0 ):
 				return false
 				
-			if( Glass.content[posY][posX + 1] != 0 ):
-				return false
+			if( Glass.content[pos_y][pos_x - 1] ):
+				pass
+		
+		RIGHT:
+			pass
 		
 		DOWN:
-			if( posY + 1 >= Glass.COL_SIZE ):
-				return false
-			
-			if( Glass.content[posY + 1][posX] != 0 ):
-				return false
+			pass
 	
-	return true
+	return is_empty
