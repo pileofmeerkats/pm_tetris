@@ -23,7 +23,6 @@ config/icon="res://icon.png"
 [autoload]
 
 Glass="*res://Glass.gd"
-Figures="*res://Figures_all.gd"
 
 [display]
 
